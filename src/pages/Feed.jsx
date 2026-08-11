@@ -196,6 +196,8 @@ function ImageCarousel({ images, onImageClick }) {
     const el = scrollRef.current;
     dragState.current = { isDown: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft, dragged: false };
     el.style.cursor = "grabbing";
+    el.style.scrollSnapType = "none";
+    el.style.scrollBehavior = "auto";
   };
   const onMouseMove = (e) => {
     if (!dragState.current.isDown) return;
@@ -207,8 +209,20 @@ function ImageCarousel({ images, onImageClick }) {
     el.scrollLeft = dragState.current.scrollLeft - walk;
   };
   const onMouseUp = () => {
+    if (!dragState.current.isDown) return;
     dragState.current.isDown = false;
-    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+    const el = scrollRef.current;
+    if (!el) return;
+    el.style.cursor = "grab";
+    el.style.scrollBehavior = "smooth";
+    el.style.scrollSnapType = "x mandatory";
+    const cardWidth = el.firstElementChild?.offsetWidth || el.offsetWidth;
+    const gap = 12;
+    const target = Math.round(el.scrollLeft / (cardWidth + gap));
+    el.scrollTo({ left: target * (cardWidth + gap) });
+    requestAnimationFrame(() => {
+      el.style.scrollBehavior = "";
+    });
   };
 
   if (images.length === 1) {
@@ -395,20 +409,20 @@ function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, 
 
   return (
     <>
-      <div className={`px-5 ${isReply ? "pt-0" : "pt-5"} ${hasThreadBelow ? "pb-0" : "pb-5"}`}>
+      <div className={`relative px-5 pt-5 ${hasThreadBelow ? "pb-2" : "pb-5"}`}>
+        {isReply && (
+          <div className="absolute left-[39px] top-0 h-5 w-0.5 bg-border" />
+        )}
+        {hasThreadBelow && (
+          <div className="absolute left-[39px] bottom-0 top-[60px] w-0.5 bg-border" />
+        )}
         <div className="flex gap-3">
           <div className="flex flex-col items-center">
-            {isReply && (
-              <div className="w-0.5 h-2 bg-border shrink-0" />
-            )}
             <img
               src={user.avatar}
               alt={user.name}
-              className="h-10 w-10 shrink-0 rounded-full bg-secondary"
+              className="relative z-10 h-10 w-10 shrink-0 rounded-full bg-secondary"
             />
-            {hasThreadBelow && (
-              <div className="mt-1 w-0.5 flex-1 min-h-4 bg-border" />
-            )}
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between">
@@ -434,7 +448,7 @@ function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, 
                 </button>
               </div>
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-foreground/90">{post.text}</p>
+            <p className="mt-0.5 text-sm leading-relaxed text-foreground/90">{post.text}</p>
             {postImages.length > 0 && (
               <ImageCarousel
                 images={postImages}
