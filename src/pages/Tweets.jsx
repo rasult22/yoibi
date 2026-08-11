@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import { tweets as initialTweets, users } from "@/data/mockData";
@@ -7,8 +8,10 @@ import { motion } from "motion/react";
 
 function TweetItem({ tweet, onLike, onRetweet, hasThreadBelow, isReply }) {
   const user = users.find((u) => u.id === tweet.userId);
+  const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
   const [retweeted, setRetweeted] = useState(false);
+  const handleGoToWall = () => navigate(`/wall/${user.handle.slice(1)}`);
 
   const handleLike = () => {
     setLiked(!liked);
@@ -30,7 +33,8 @@ function TweetItem({ tweet, onLike, onRetweet, hasThreadBelow, isReply }) {
           <img
             src={user.avatar}
             alt={user.name}
-            className="h-10 w-10 shrink-0 rounded-full bg-secondary"
+            onClick={handleGoToWall}
+            className="h-10 w-10 shrink-0 cursor-pointer rounded-full bg-secondary transition-opacity hover:opacity-80"
           />
           {hasThreadBelow && (
             <div className="mt-1 w-0.5 flex-1 min-h-4 bg-border" />
@@ -38,8 +42,8 @@ function TweetItem({ tweet, onLike, onRetweet, hasThreadBelow, isReply }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-foreground">{user.name}</span>
-            <span className="text-sm text-muted-foreground">{user.handle}</span>
+            <span onClick={handleGoToWall} className="cursor-pointer font-semibold text-foreground hover:underline">{user.name}</span>
+            <span onClick={handleGoToWall} className="cursor-pointer text-sm text-muted-foreground hover:underline">{user.handle}</span>
             <span className="text-sm text-muted-foreground">·</span>
             <span className="text-sm text-muted-foreground">{tweet.time}</span>
           </div>

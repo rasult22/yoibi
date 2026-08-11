@@ -112,17 +112,20 @@ export default function Layout() {
         <aside className="hidden lg:block">
           <div className="sticky top-0 flex flex-col gap-4 py-6">
             <MagicCard className="p-5" gradientColor="#06b6d410">
-              <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate("/wall")}
+                className="flex w-full cursor-pointer items-center gap-3 text-left"
+              >
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
-                  className="h-12 w-12 rounded-full bg-secondary"
+                  className="h-12 w-12 rounded-full bg-secondary transition-opacity hover:opacity-80"
                 />
                 <div className="min-w-0">
-                  <div className="font-semibold text-foreground truncate">{currentUser.name}</div>
+                  <div className="font-semibold text-foreground truncate hover:underline">{currentUser.name}</div>
                   <div className="text-sm text-muted-foreground">{currentUser.handle}</div>
                 </div>
-              </div>
+              </button>
               <div className="mt-4 flex justify-between text-center">
                 <div>
                   <div className="text-sm font-semibold text-foreground">{currentUser.posts}</div>
@@ -140,7 +143,14 @@ export default function Layout() {
             </MagicCard>
 
             <MagicCard className="p-2" gradientColor="#06b6d410">
-              <button className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground">
+              <button
+                onClick={() => navigate("/wall")}
+                className={`flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-secondary/60 hover:text-foreground ${
+                  location.pathname === "/wall"
+                    ? "font-semibold text-foreground"
+                    : "text-muted-foreground"
+                }`}
+              >
                 <User size={18} />
                 My Wall
               </button>

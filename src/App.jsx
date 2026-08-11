@@ -7,6 +7,7 @@ import Videos from "./pages/Videos";
 import Tweets from "./pages/Tweets";
 import Streams from "./pages/Streams";
 import MeetUp from "./pages/MeetUp";
+import Wall from "./pages/Wall";
 
 export default function App() {
   return (
@@ -18,6 +19,8 @@ export default function App() {
         <Route path="/tweets" element={<Tweets />} />
         <Route path="/streams" element={<Streams />} />
         <Route path="/meetup" element={<MeetUp />} />
+        <Route path="/wall" element={<Wall />} />
+        <Route path="/wall/:handle" element={<Wall />} />
       </Route>
       <Route path="/signup" element={<Signup />} />
     </Routes>

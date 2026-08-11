@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import { posts as initialPosts, users, mockComments } from "@/data/mockData";
@@ -391,12 +392,14 @@ function CommentSection({ postId, comments, onAddComment }) {
 
 function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, hasThreadBelow, isReply }) {
   const user = users.find((u) => u.id === post.userId);
+  const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(false);
   const [reposted, setReposted] = useState(false);
   const [saved, setSaved] = useState(false);
   const comments = mockComments[post.id] || [];
   const postImages = post.images || (post.image ? [post.image] : []);
+  const handleGoToWall = () => navigate(`/wall/${user.handle.slice(1)}`);
   const handleLike = () => {
     setLiked(!liked);
     onLike(post.id, !liked);
@@ -421,14 +424,15 @@ function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, 
             <img
               src={user.avatar}
               alt={user.name}
-              className="relative z-10 h-10 w-10 shrink-0 rounded-full bg-secondary"
+              onClick={handleGoToWall}
+              className="relative z-10 h-10 w-10 shrink-0 cursor-pointer rounded-full bg-secondary transition-opacity hover:opacity-80"
             />
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-foreground">{user.name}</span>
-                <span className="text-sm text-muted-foreground">{user.handle}</span>
+                <span onClick={handleGoToWall} className="cursor-pointer font-semibold text-foreground hover:underline">{user.name}</span>
+                <span onClick={handleGoToWall} className="cursor-pointer text-sm text-muted-foreground hover:underline">{user.handle}</span>
                 <span className="text-sm text-muted-foreground">·</span>
                 <span className="text-sm text-muted-foreground">{post.time}</span>
               </div>

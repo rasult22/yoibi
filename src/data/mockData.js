@@ -1,14 +1,14 @@
 export const users = [
-  { id: 1, name: "Alex Rivera", handle: "@alexr", avatar: "https://i.pravatar.cc/150?img=11", country: "USA", color: "#6366f1" },
-  { id: 2, name: "Sakura Tanaka", handle: "@sakura_t", avatar: "https://i.pravatar.cc/150?img=5", country: "Japan", color: "#ec4899" },
-  { id: 3, name: "Marcus Johnson", handle: "@marcusj", avatar: "https://i.pravatar.cc/150?img=12", country: "UK", color: "#22c55e" },
-  { id: 4, name: "Elena Petrova", handle: "@elena_p", avatar: "https://i.pravatar.cc/150?img=9", country: "Russia", color: "#f59e0b" },
-  { id: 5, name: "Carlos Mendez", handle: "@carlosm", avatar: "https://i.pravatar.cc/150?img=14", country: "Mexico", color: "#ef4444" },
-  { id: 6, name: "Amara Okafor", handle: "@amara_o", avatar: "https://i.pravatar.cc/150?img=32", country: "Nigeria", color: "#8b5cf6" },
-  { id: 7, name: "Li Wei", handle: "@liwei", avatar: "https://i.pravatar.cc/150?img=33", country: "China", color: "#14b8a6" },
-  { id: 8, name: "Sophie Dubois", handle: "@sophie_d", avatar: "https://i.pravatar.cc/150?img=25", country: "France", color: "#f97316" },
-  { id: 9, name: "Raj Patel", handle: "@rajp", avatar: "https://i.pravatar.cc/150?img=51", country: "India", color: "#06b6d4" },
-  { id: 10, name: "Fatima Al-Hassan", handle: "@fatima_h", avatar: "https://i.pravatar.cc/150?img=23", country: "UAE", color: "#a855f7" },
+  { id: 1, name: "Alex Rivera", handle: "@alexr", avatar: "https://i.pravatar.cc/150?img=11", country: "USA", color: "#6366f1", bio: "Photographer & sunset chaser. Documenting the world one frame at a time.", cover: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&h=300&fit=crop", joinDate: "Jan 2025", followers: 1420, following: 384 },
+  { id: 2, name: "Sakura Tanaka", handle: "@sakura_t", avatar: "https://i.pravatar.cc/150?img=5", country: "Japan", color: "#ec4899", bio: "Tokyo dreamer. Cherry blossoms, anime & tech. 🌸", cover: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900&h=300&fit=crop", joinDate: "Mar 2025", followers: 3200, following: 210 },
+  { id: 3, name: "Marcus Johnson", handle: "@marcusj", avatar: "https://i.pravatar.cc/150?img=12", country: "UK", color: "#22c55e", bio: "Guitar learner. Day 1 of forever. Music is the answer.", cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=900&h=300&fit=crop", joinDate: "Feb 2025", followers: 890, following: 445 },
+  { id: 4, name: "Elena Petrova", handle: "@elena_p", avatar: "https://i.pravatar.cc/150?img=9", country: "Russia", color: "#f59e0b", bio: "Early morning runner. Book lover. Thinking out loud.", cover: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=900&h=300&fit=crop", joinDate: "Jan 2025", followers: 2100, following: 312 },
+  { id: 5, name: "Carlos Mendez", handle: "@carlosm", avatar: "https://i.pravatar.cc/150?img=14", country: "Mexico", color: "#ef4444", bio: "Street food connoisseur. Tacos are life. 🌮", cover: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&h=300&fit=crop", joinDate: "Apr 2025", followers: 1750, following: 520 },
+  { id: 6, name: "Amara Okafor", handle: "@amara_o", avatar: "https://i.pravatar.cc/150?img=32", country: "Nigeria", color: "#8b5cf6", bio: "Mental health advocate. Spreading love and positivity. 💚", cover: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=900&h=300&fit=crop", joinDate: "Feb 2025", followers: 5600, following: 189 },
+  { id: 7, name: "Li Wei", handle: "@liwei", avatar: "https://i.pravatar.cc/150?img=33", country: "China", color: "#14b8a6", bio: "Full-stack dev. AI optimist. Building the future one commit at a time.", cover: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&h=300&fit=crop", joinDate: "Jan 2025", followers: 8900, following: 156 },
+  { id: 8, name: "Sophie Dubois", handle: "@sophie_d", avatar: "https://i.pravatar.cc/150?img=25", country: "France", color: "#f97316", bio: "Literature & croissants. Paris is always a good idea. 🥐", cover: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900&h=300&fit=crop", joinDate: "Mar 2025", followers: 1300, following: 278 },
+  { id: 9, name: "Raj Patel", handle: "@rajp", avatar: "https://i.pravatar.cc/150?img=51", country: "India", color: "#06b6d4", bio: "Shipping code, breaking builds. React + Go enthusiast. 🚀", cover: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&h=300&fit=crop", joinDate: "Jan 2025", followers: 2400, following: 430 },
+  { id: 10, name: "Fatima Al-Hassan", handle: "@fatima_h", avatar: "https://i.pravatar.cc/150?img=23", country: "UAE", color: "#a855f7", bio: "Animal lover. Volunteering is my superpower. 🐕❤️", cover: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=900&h=300&fit=crop", joinDate: "Feb 2025", followers: 3100, following: 267 },
 ];
 
 export const posts = [
