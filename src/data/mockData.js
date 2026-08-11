@@ -160,18 +160,18 @@ export const mockComments = {
 };
 
 export const videos = [
-  { id: 1, title: "Understanding Global Economics in 10 Minutes", userId: 9, category: "learning", views: 45200, duration: "10:24", thumbnail: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=225&fit=crop" },
-  { id: 2, title: "City Council Meeting — New Housing Policy", userId: 3, category: "governmental", views: 12300, duration: "45:12", thumbnail: "https://images.unsplash.com/photo-1577495508048-b635879837f1?w=400&h=225&fit=crop" },
-  { id: 3, title: "Epic Skateboard Tricks Compilation", userId: 1, category: "fun", views: 892000, duration: "8:45", thumbnail: "https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?w=400&h=225&fit=crop" },
-  { id: 4, title: "The Future of Renewable Energy", userId: 7, category: "current-events", views: 67800, duration: "15:33", thumbnail: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=225&fit=crop" },
-  { id: 5, title: "Late Night Political Analysis", userId: 4, category: "politics", views: 234000, duration: "22:10", thumbnail: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400&h=225&fit=crop" },
-  { id: 6, title: "Cooking Street Food Around the World", userId: 5, category: "fun", views: 456000, duration: "12:08", thumbnail: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=225&fit=crop" },
-  { id: 7, title: "Deep Dive: How Elections Actually Work", userId: 6, category: "politics", views: 178000, duration: "28:45", thumbnail: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=400&h=225&fit=crop" },
-  { id: 8, title: "Breaking: New Climate Agreement Signed", userId: 8, category: "news", views: 345000, duration: "5:22", thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=225&fit=crop" },
-  { id: 9, title: "Fireside Chat: Life, Purpose, and Happiness", userId: 10, category: "conversations", views: 89000, duration: "35:18", thumbnail: "https://images.unsplash.com/photo-1475483768296-6163e08872a1?w=400&h=225&fit=crop" },
-  { id: 10, title: "Tech Industry Commentary — Where Are We Heading?", userId: 2, category: "commentary", views: 123000, duration: "18:55", thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=225&fit=crop" },
-  { id: 11, title: "How to Start a Small Business in 2026", userId: 9, category: "learning", views: 567000, duration: "20:12", thumbnail: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=225&fit=crop" },
-  { id: 12, title: "National Budget Breakdown Explained", userId: 3, category: "governmental", views: 34500, duration: "16:40", thumbnail: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=225&fit=crop" },
+  { id: 1, title: "Understanding Global Economics in 10 Minutes", userId: 9, category: "learning", views: 45200, duration: "10:24", thumbnail: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4" },
+  { id: 2, title: "City Council Meeting — New Housing Policy", userId: 3, category: "governmental", views: 12300, duration: "45:12", thumbnail: "https://images.unsplash.com/photo-1577495508048-b635879837f1?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4" },
+  { id: 3, title: "Epic Skateboard Tricks Compilation", userId: 1, category: "fun", views: 892000, duration: "8:45", thumbnail: "https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_2MB.mp4" },
+  { id: 4, title: "The Future of Renewable Energy", userId: 7, category: "current-events", views: 67800, duration: "15:33", thumbnail: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=225&fit=crop", videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" },
+  { id: 5, title: "Late Night Political Analysis", userId: 4, category: "politics", views: 234000, duration: "22:10", thumbnail: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_2MB.mp4" },
+  { id: 6, title: "Cooking Street Food Around the World", userId: 5, category: "fun", views: 456000, duration: "12:08", thumbnail: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_2MB.mp4" },
+  { id: 7, title: "Deep Dive: How Elections Actually Work", userId: 6, category: "politics", views: 178000, duration: "28:45", thumbnail: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=400&h=225&fit=crop", videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/friday.mp4" },
+  { id: 8, title: "Breaking: New Climate Agreement Signed", userId: 8, category: "news", views: 345000, duration: "5:22", thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4" },
+  { id: 9, title: "Fireside Chat: Life, Purpose, and Happiness", userId: 10, category: "conversations", views: 89000, duration: "35:18", thumbnail: "https://images.unsplash.com/photo-1475483768296-6163e08872a1?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4" },
+  { id: 10, title: "Tech Industry Commentary — Where Are We Heading?", userId: 2, category: "commentary", views: 123000, duration: "18:55", thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_5MB.mp4" },
+  { id: 11, title: "How to Start a Small Business in 2026", userId: 9, category: "learning", views: 567000, duration: "20:12", thumbnail: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_5MB.mp4" },
+  { id: 12, title: "National Budget Breakdown Explained", userId: 3, category: "governmental", views: 34500, duration: "16:40", thumbnail: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4" },
 ];
 
 export const tweets = [
@@ -198,14 +198,14 @@ export const tweets = [
 ];
 
 export const streams = [
-  { id: 1, userId: 1, title: "Late Night Gaming Session — Join the fun!", viewers: 1245, category: "fun", isLive: true, thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop" },
-  { id: 2, userId: 4, title: "Election Results Live Coverage 2026", viewers: 23456, category: "politics", isLive: true, thumbnail: "https://images.unsplash.com/photo-1494172961521-33799ddd43a5?w=400&h=225&fit=crop" },
-  { id: 3, userId: 9, title: "Coding a Full App in 4 Hours — React Challenge", viewers: 3421, category: "learning", isLive: true, thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=225&fit=crop" },
-  { id: 4, userId: 6, title: "Morning Yoga & Meditation Session", viewers: 876, category: "fun", isLive: true, thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=225&fit=crop" },
-  { id: 5, userId: 7, title: "Breaking News: Tech Industry Updates", viewers: 8934, category: "news", isLive: true, thumbnail: "https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=225&fit=crop" },
-  { id: 6, userId: 2, title: "Tokyo Street Walk — Cherry Blossom Season", viewers: 5678, category: "fun", isLive: true, thumbnail: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=225&fit=crop" },
-  { id: 7, userId: 8, title: "French Cooking Masterclass — Croissants", viewers: 2345, category: "learning", isLive: true, thumbnail: "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=400&h=225&fit=crop" },
-  { id: 8, userId: 5, title: "Open Mic Night — Music & Stories", viewers: 4567, category: "conversations", isLive: true, thumbnail: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=225&fit=crop" },
+  { id: 1, userId: 1, title: "Late Night Gaming Session — Join the fun!", viewers: 1245, category: "fun", isLive: true, thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_2MB.mp4" },
+  { id: 2, userId: 4, title: "Election Results Live Coverage 2026", viewers: 23456, category: "politics", isLive: true, thumbnail: "https://images.unsplash.com/photo-1494172961521-33799ddd43a5?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_2MB.mp4" },
+  { id: 3, userId: 9, title: "Coding a Full App in 4 Hours — React Challenge", viewers: 3421, category: "learning", isLive: true, thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_2MB.mp4" },
+  { id: 4, userId: 6, title: "Morning Yoga & Meditation Session", viewers: 876, category: "fun", isLive: true, thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=225&fit=crop", videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" },
+  { id: 5, userId: 7, title: "Breaking News: Tech Industry Updates", viewers: 8934, category: "news", isLive: true, thumbnail: "https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4" },
+  { id: 6, userId: 2, title: "Tokyo Street Walk — Cherry Blossom Season", viewers: 5678, category: "fun", isLive: true, thumbnail: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_5MB.mp4" },
+  { id: 7, userId: 8, title: "French Cooking Masterclass — Croissants", viewers: 2345, category: "learning", isLive: true, thumbnail: "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=400&h=225&fit=crop", videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/friday.mp4" },
+  { id: 8, userId: 5, title: "Open Mic Night — Music & Stories", viewers: 4567, category: "conversations", isLive: true, thumbnail: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=225&fit=crop", videoUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_5MB.mp4" },
 ];
 
 export const meetupRooms = [
@@ -228,14 +228,14 @@ export const communityRules = [
 ];
 
 export const videoCategories = [
-  { id: "politics", label: "Politics", emoji: "🏛️" },
-  { id: "current-events", label: "Current Events", emoji: "📰" },
-  { id: "learning", label: "Learning", emoji: "📚" },
-  { id: "governmental", label: "Governmental Info", emoji: "🏢" },
-  { id: "fun", label: "Just Having Fun", emoji: "🎉" },
-  { id: "conversations", label: "Conversations", emoji: "💬" },
-  { id: "commentary", label: "Commentary", emoji: "🎙️" },
-  { id: "news", label: "News", emoji: "📺" },
+  { id: "politics", label: "Politics", icon: "Landmark" },
+  { id: "current-events", label: "Current Events", icon: "Newspaper" },
+  { id: "learning", label: "Learning", icon: "BookOpen" },
+  { id: "governmental", label: "Governmental Info", icon: "Building2" },
+  { id: "fun", label: "Just Having Fun", icon: "PartyPopper" },
+  { id: "conversations", label: "Conversations", icon: "MessageSquare" },
+  { id: "commentary", label: "Commentary", icon: "Mic" },
+  { id: "news", label: "News", icon: "Tv" },
 ];
 
 export const countries = [

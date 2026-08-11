@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
@@ -33,9 +33,12 @@ import {
   UserPlus,
   UserCheck,
   Play,
+  Pause,
   Eye,
   Clock,
   Radio,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -386,18 +389,61 @@ function WallTweetItem({ tweet }) {
 }
 
 function WallVideoItem({ video }) {
-  const user = userMap.get(video.userId);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (playing && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [playing]);
+
+  function handlePlay() {
+    if (playing) {
+      videoRef.current?.pause();
+      setPlaying(false);
+    } else {
+      setPlaying(true);
+    }
+  }
+
   return (
     <div className="group relative overflow-hidden rounded-xl">
-      <img src={video.thumbnail} alt={video.title} className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" />
-      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
-        <div className="rounded-full bg-black/60 p-3 opacity-0 transition-opacity group-hover:opacity-100">
-          <Play size={20} className="text-white" fill="white" />
-        </div>
-      </div>
-      <div className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-xs text-white">
-        {video.duration}
-      </div>
+      {!playing && (
+        <>
+          <img src={video.thumbnail} alt={video.title} className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+          <div className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30" onClick={handlePlay}>
+            <div className="rounded-full bg-cyan-600/90 p-3 opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+              <Play size={20} className="ml-0.5 text-white" fill="white" />
+            </div>
+          </div>
+          <div className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-xs text-white">
+            {video.duration}
+          </div>
+        </>
+      )}
+      {playing && (
+        <>
+          <video
+            ref={videoRef}
+            src={video.videoUrl}
+            className="aspect-video w-full cursor-pointer object-cover"
+            muted={muted}
+            autoPlay
+            onClick={handlePlay}
+            onEnded={() => setPlaying(false)}
+          />
+          <div className="absolute bottom-2 left-2 flex gap-1">
+            <button onClick={(e) => { e.stopPropagation(); handlePlay(); }} className="rounded bg-black/60 p-1.5 text-white backdrop-blur-sm hover:bg-black/80">
+              {playing ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); setMuted(!muted); }} className="rounded bg-black/60 p-1.5 text-white backdrop-blur-sm hover:bg-black/80">
+              {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+            </button>
+          </div>
+        </>
+      )}
       <div className="mt-2 px-1">
         <h3 className="line-clamp-2 text-sm font-medium text-foreground">{video.title}</h3>
         <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
@@ -409,13 +455,62 @@ function WallVideoItem({ video }) {
 }
 
 function WallStreamItem({ stream }) {
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (playing && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [playing]);
+
+  function handlePlay() {
+    if (playing) {
+      videoRef.current?.pause();
+      setPlaying(false);
+    } else {
+      setPlaying(true);
+    }
+  }
+
   return (
     <div className="group relative overflow-hidden rounded-xl">
-      <img src={stream.thumbnail} alt={stream.title} className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" />
-      <div className="absolute top-2 left-2 flex items-center gap-1.5 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white">
+      {!playing && (
+        <>
+          <img src={stream.thumbnail} alt={stream.title} className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+          <div className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30" onClick={handlePlay}>
+            <div className="rounded-full bg-red-600/90 p-3 opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+              <Play size={20} className="ml-0.5 text-white" fill="white" />
+            </div>
+          </div>
+        </>
+      )}
+      {playing && (
+        <>
+          <video
+            ref={videoRef}
+            src={stream.videoUrl}
+            className="aspect-video w-full cursor-pointer object-cover"
+            muted={muted}
+            autoPlay
+            loop
+            onClick={handlePlay}
+          />
+          <div className="absolute bottom-2 left-2 z-10 flex gap-1">
+            <button onClick={(e) => { e.stopPropagation(); handlePlay(); }} className="rounded bg-black/60 p-1.5 text-white backdrop-blur-sm hover:bg-black/80">
+              <Pause size={14} fill="currentColor" />
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); setMuted(!muted); }} className="rounded bg-black/60 p-1.5 text-white backdrop-blur-sm hover:bg-black/80">
+              {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+            </button>
+          </div>
+        </>
+      )}
+      <div className="absolute top-2 left-2 z-10 flex items-center gap-1.5 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white">
         <Radio size={12} className="animate-pulse" /> LIVE
       </div>
-      <div className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-xs text-white">
+      <div className="absolute bottom-2 right-2 z-10 rounded bg-black/70 px-1.5 py-0.5 text-xs text-white">
         {stream.viewers.toLocaleString()} watching
       </div>
       <div className="mt-2 px-1">
