@@ -2,11 +2,11 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { RetroGrid } from "@/components/ui/retro-grid";
-import { streams, users } from "@/data/mockData";
+import { streams, userMap } from "@/data/mockData";
 import { Eye, Radio } from "lucide-react";
 
 function StreamCard({ stream }) {
-  const user = users.find((u) => u.id === stream.userId);
+  const user = userMap.get(stream.userId);
 
   return (
     <MagicCard className="overflow-hidden p-0" gradientColor="#06b6d410">

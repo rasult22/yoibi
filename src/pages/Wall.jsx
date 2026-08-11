@@ -4,6 +4,7 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import {
   users,
+  userMap,
   posts as allPosts,
   tweets as allTweets,
   videos as allVideos,
@@ -268,7 +269,7 @@ function ImageCarousel({ images, onImageClick }) {
 }
 
 function WallPostItem({ post, onLike, onRepost, onOpenImage, onShare }) {
-  const user = users.find((u) => u.id === post.userId);
+  const user = userMap.get(post.userId);
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
   const [reposted, setReposted] = useState(false);
@@ -336,7 +337,7 @@ function WallPostItem({ post, onLike, onRepost, onOpenImage, onShare }) {
 function WallTweetItem({ tweet }) {
   const [liked, setLiked] = useState(false);
   const [retweeted, setRetweeted] = useState(false);
-  const user = users.find((u) => u.id === tweet.userId);
+  const user = userMap.get(tweet.userId);
   const navigate = useNavigate();
   const handleGoToWall = () => navigate(`/wall/${user.handle.slice(1)}`);
 
@@ -385,7 +386,7 @@ function WallTweetItem({ tweet }) {
 }
 
 function WallVideoItem({ video }) {
-  const user = users.find((u) => u.id === video.userId);
+  const user = userMap.get(video.userId);
   return (
     <div className="group relative overflow-hidden rounded-xl">
       <img src={video.thumbnail} alt={video.title} className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" />
@@ -434,7 +435,7 @@ export default function Wall() {
 
   const profileUser = handle
     ? users.find((u) => u.handle === `@${handle}`)
-    : users.find((u) => u.id === CURRENT_USER_ID);
+    : userMap.get(CURRENT_USER_ID);
 
   if (!profileUser) {
     return (

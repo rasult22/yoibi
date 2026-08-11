@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react"
 import {
   motion,
   useMotionTemplate,
@@ -6,6 +6,37 @@ import {
   useSpring,
 } from "motion/react"
 import { cn } from "@/lib/utils"
+
+const themeListeners = new Set()
+let cachedIsDark = document.documentElement.classList.contains("dark")
+
+const observer = new MutationObserver(() => {
+  cachedIsDark = document.documentElement.classList.contains("dark")
+  themeListeners.forEach((fn) => fn())
+})
+observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
+
+function subscribeTheme(cb) {
+  themeListeners.add(cb)
+  return () => themeListeners.delete(cb)
+}
+function getThemeSnapshot() {
+  return cachedIsDark
+}
+
+const globalResetListeners = new Set()
+
+function notifyGlobalReset() {
+  globalResetListeners.forEach((fn) => fn())
+}
+
+window.addEventListener("pointerout", (e) => {
+  if (!e.relatedTarget) notifyGlobalReset()
+})
+window.addEventListener("blur", notifyGlobalReset)
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState !== "visible") notifyGlobalReset()
+})
 
 function isOrbMode(props) {
   return props.mode === "orb"
@@ -30,17 +61,7 @@ export function MagicCard(props) {
   const glowBlur = isOrbMode(props) ? (props.glowBlur ?? 60) : 60
   const glowOpacity = isOrbMode(props) ? (props.glowOpacity ?? 0.9) : 0.9
 
-  const [isDarkTheme, setIsDarkTheme] = useState(() =>
-    document.documentElement.classList.contains("dark")
-  )
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDarkTheme(document.documentElement.classList.contains("dark"))
-    })
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
-    return () => observer.disconnect()
-  }, [])
+  const isDarkTheme = useSyncExternalStore(subscribeTheme, getThemeSnapshot)
 
   const mouseX = useMotionValue(-gradientSize)
   const mouseY = useMotionValue(-gradientSize)
@@ -90,23 +111,9 @@ export function MagicCard(props) {
   }, [reset])
 
   useEffect(() => {
-    const handleGlobalPointerOut = (e) => {
-      if (!e.relatedTarget) reset("global")
-    }
-    const handleBlur = () => reset("global")
-    const handleVisibility = () => {
-      if (document.visibilityState !== "visible") reset("global")
-    }
-
-    window.addEventListener("pointerout", handleGlobalPointerOut)
-    window.addEventListener("blur", handleBlur)
-    document.addEventListener("visibilitychange", handleVisibility)
-
-    return () => {
-      window.removeEventListener("pointerout", handleGlobalPointerOut)
-      window.removeEventListener("blur", handleBlur)
-      document.removeEventListener("visibilitychange", handleVisibility)
-    };
+    const resetFn = () => reset("global")
+    globalResetListeners.add(resetFn)
+    return () => globalResetListeners.delete(resetFn)
   }, [reset])
 
   return (

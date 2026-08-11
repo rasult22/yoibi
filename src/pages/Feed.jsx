@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
-import { posts as initialPosts, users, mockComments } from "@/data/mockData";
+import { posts as initialPosts, users, userMap, mockComments } from "@/data/mockData";
 import {
   Heart,
   MessageCircle,
@@ -346,7 +346,7 @@ function CommentSection({ postId, comments, onAddComment }) {
 
         <div className="space-y-2.5">
           {localComments.map((comment, i) => {
-            const commentUser = users.find((u) => u.id === comment.userId);
+            const commentUser = userMap.get(comment.userId);
             return (
               <motion.div
                 key={comment.id}
@@ -390,8 +390,8 @@ function CommentSection({ postId, comments, onAddComment }) {
   );
 }
 
-function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, hasThreadBelow, isReply }) {
-  const user = users.find((u) => u.id === post.userId);
+const PostItem = memo(function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, hasThreadBelow, isReply }) {
+  const user = userMap.get(post.userId);
   const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -509,7 +509,7 @@ function PostItem({ post, onLike, onRepost, onAddComment, onOpenImage, onShare, 
 
     </>
   );
-}
+});
 
 function buildThreadGroups(posts) {
   const groups = [];
@@ -540,7 +540,7 @@ export default function Feed() {
   const [lightbox, setLightbox] = useState(null);
   const [sharePost, setSharePost] = useState(null);
 
-  const handleLike = (id, isLiking) => {
+  const handleLike = useCallback((id, isLiking) => {
     setPosts((prev) =>
       prev.map((p) =>
         p.id === id
@@ -548,9 +548,9 @@ export default function Feed() {
           : p
       )
     );
-  };
+  }, []);
 
-  const handleRepost = (id, isReposting) => {
+  const handleRepost = useCallback((id, isReposting) => {
     setPosts((prev) =>
       prev.map((p) =>
         p.id === id
@@ -558,15 +558,21 @@ export default function Feed() {
           : p
       )
     );
-  };
+  }, []);
 
-  const handleAddComment = (postId) => {
+  const handleAddComment = useCallback((postId) => {
     setPosts((prev) =>
       prev.map((p) =>
         p.id === postId ? { ...p, comments: p.comments + 1 } : p
       )
     );
-  };
+  }, []);
+
+  const handleOpenImage = useCallback((images, index) => {
+    setLightbox({ images, index });
+  }, []);
+
+  const threadGroups = useMemo(() => buildThreadGroups(posts), [posts]);
 
   const handleNewPost = () => {
     if (!newPost.trim()) return;
@@ -646,7 +652,7 @@ export default function Feed() {
       )}
 
       <div className="space-y-4">
-        {buildThreadGroups(posts).map((group, gi) => (
+        {threadGroups.map((group, gi) => (
           <BlurFade key={group[0].id} delay={0.1 + gi * 0.05}>
             <MagicCard className="overflow-hidden p-0" gradientColor="#06b6d410">
               {group.map((post, ti) => (
@@ -656,8 +662,8 @@ export default function Feed() {
                     onLike={handleLike}
                     onRepost={handleRepost}
                     onAddComment={handleAddComment}
-                    onOpenImage={(images, index) => setLightbox({ images, index })}
-                    onShare={(p) => setSharePost(p)}
+                    onOpenImage={handleOpenImage}
+                    onShare={setSharePost}
                     hasThreadBelow={ti < group.length - 1}
                     isReply={!!post.replyTo}
                   />

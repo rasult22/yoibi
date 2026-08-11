@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import { BorderBeam } from "@/components/ui/border-beam";
-import { videos, users, videoCategories } from "@/data/mockData";
+import { videos, userMap, videoCategories } from "@/data/mockData";
 import { Play, Eye, Clock } from "lucide-react";
 
 function formatViews(n) {
@@ -12,7 +12,7 @@ function formatViews(n) {
 }
 
 function VideoCard({ video }) {
-  const user = users.find((u) => u.id === video.userId);
+  const user = userMap.get(video.userId);
   const [hovered, setHovered] = useState(false);
 
   return (

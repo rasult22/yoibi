@@ -11,6 +11,8 @@ export const users = [
   { id: 10, name: "Fatima Al-Hassan", handle: "@fatima_h", avatar: "https://i.pravatar.cc/150?img=23", country: "UAE", color: "#a855f7", bio: "Animal lover. Volunteering is my superpower. 🐕❤️", cover: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=900&h=300&fit=crop", joinDate: "Feb 2025", followers: 3100, following: 267 },
 ];
 
+export const userMap = new Map(users.map((u) => [u.id, u]));
+
 export const posts = [
   {
     id: 1, userId: 1, text: "Just witnessed the most beautiful sunset from my rooftop. Sometimes you need to pause and appreciate the little things. 🌅",

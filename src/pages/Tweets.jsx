@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
-import { tweets as initialTweets, users } from "@/data/mockData";
+import { tweets as initialTweets, userMap } from "@/data/mockData";
 import { Heart, Repeat2, MessageCircle, Share, Plus, Send } from "lucide-react";
 import { motion } from "motion/react";
 
-function TweetItem({ tweet, onLike, onRetweet, hasThreadBelow, isReply }) {
-  const user = users.find((u) => u.id === tweet.userId);
+const TweetItem = memo(function TweetItem({ tweet, onLike, onRetweet, hasThreadBelow, isReply }) {
+  const user = userMap.get(tweet.userId);
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
   const [retweeted, setRetweeted] = useState(false);
@@ -90,7 +90,7 @@ function TweetItem({ tweet, onLike, onRetweet, hasThreadBelow, isReply }) {
       </div>
     </div>
   );
-}
+});
 
 function buildThreadGroups(tweets) {
   const groups = [];
@@ -119,7 +119,7 @@ export default function Tweets() {
   const [newTweet, setNewTweet] = useState("");
   const [showComposer, setShowComposer] = useState(false);
 
-  const handleLike = (id, isLiking) => {
+  const handleLike = useCallback((id, isLiking) => {
     setTweets((prev) =>
       prev.map((t) =>
         t.id === id
@@ -127,9 +127,9 @@ export default function Tweets() {
           : t
       )
     );
-  };
+  }, []);
 
-  const handleRetweet = (id, isRetweeting) => {
+  const handleRetweet = useCallback((id, isRetweeting) => {
     setTweets((prev) =>
       prev.map((t) =>
         t.id === id
@@ -137,7 +137,7 @@ export default function Tweets() {
           : t
       )
     );
-  };
+  }, []);
 
   const handlePost = () => {
     if (!newTweet.trim() || newTweet.length > 280) return;
@@ -154,7 +154,7 @@ export default function Tweets() {
     setShowComposer(false);
   };
 
-  const threadGroups = buildThreadGroups(tweets);
+  const threadGroups = useMemo(() => buildThreadGroups(tweets), [tweets]);
 
   return (
     <div>
