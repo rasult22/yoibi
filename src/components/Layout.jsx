@@ -1,6 +1,7 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import YoibiLogo from "@/components/YoibiLogo";
 import { MagicCard } from "@/components/ui/magic-card";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import {
   Home,
@@ -8,13 +9,10 @@ import {
   MessageCircle,
   Radio,
   Users,
-  Sun,
-  Moon,
   PenSquare,
   Settings,
   User,
 } from "lucide-react";
-import { useState } from "react";
 
 const navItems = [
   { icon: Home, label: "Feed", path: "/feed" },
@@ -36,12 +34,6 @@ const currentUser = {
 export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [dark, setDark] = useState(true);
-
-  const toggleTheme = () => {
-    setDark(!dark);
-    document.documentElement.classList.toggle("dark");
-  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -55,12 +47,10 @@ export default function Layout() {
             <YoibiLogo className="h-7 w-7 text-cyan-500" />
             <span className="text-lg font-bold text-cyan-500">YOIBI</span>
           </button>
-          <button
-            onClick={toggleTheme}
-            className="cursor-pointer rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-          >
-            {dark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          <AnimatedThemeToggler
+            variant="circle"
+            className="cursor-pointer rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&>svg]:size-[18px]"
+          />
         </div>
       </header>
 
@@ -105,13 +95,10 @@ export default function Layout() {
             </button>
 
             <div className="mt-auto px-3">
-              <button
-                onClick={toggleTheme}
-                className="flex cursor-pointer items-center gap-3 rounded-xl px-0 py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {dark ? <Sun size={18} /> : <Moon size={18} />}
-                {dark ? "Light mode" : "Dark mode"}
-              </button>
+              <AnimatedThemeToggler
+                variant="circle"
+                className="flex cursor-pointer items-center gap-3 rounded-xl py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground [&>svg]:size-[18px]"
+              />
             </div>
           </div>
         </aside>
