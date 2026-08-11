@@ -1,5 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import YoibiLogo from "@/components/YoibiLogo";
+import { MagicCard } from "@/components/ui/magic-card";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import {
   Home,
@@ -9,6 +10,9 @@ import {
   Users,
   Sun,
   Moon,
+  PenSquare,
+  Settings,
+  User,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -19,6 +23,15 @@ const navItems = [
   { icon: Radio, label: "Streams", path: "/streams" },
   { icon: Users, label: "Meet Up", path: "/meetup" },
 ];
+
+const currentUser = {
+  name: "Alex Rivera",
+  handle: "@alexr",
+  avatar: "https://i.pravatar.cc/150?img=11",
+  posts: 128,
+  followers: 1420,
+  following: 384,
+};
 
 export default function Layout() {
   const location = useLocation();
@@ -32,32 +45,16 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
+      {/* Mobile header */}
+      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl lg:hidden">
+        <div className="flex h-14 items-center justify-between px-4">
           <button
             onClick={() => navigate("/")}
             className="flex cursor-pointer items-center gap-2"
           >
-            <YoibiLogo className="h-8 w-8 text-cyan-500" />
-            <span className="text-xl font-bold text-cyan-500">
-              YOIBI
-            </span>
+            <YoibiLogo className="h-7 w-7 text-cyan-500" />
+            <span className="text-lg font-bold text-cyan-500">YOIBI</span>
           </button>
-          <nav className="hidden items-center gap-6 md:flex">
-            {navItems.map((item) => (
-              <button
-                key={item.path}
-                onClick={() => navigate(item.path)}
-                className={`cursor-pointer text-sm transition-colors ${
-                  location.pathname === item.path
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
           <button
             onClick={toggleTheme}
             className="cursor-pointer rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
@@ -67,11 +64,110 @@ export default function Layout() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 pb-24 pt-6">
-        <Outlet />
-      </main>
+      <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[220px_1fr_260px] lg:gap-6 lg:px-4">
+        {/* Left sidebar — desktop only */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-0 flex h-screen flex-col py-6">
+            <button
+              onClick={() => navigate("/")}
+              className="mb-8 flex cursor-pointer items-center gap-2.5 px-3"
+            >
+              <YoibiLogo className="h-8 w-8 text-cyan-500" />
+              <span className="text-xl font-bold text-cyan-500">YOIBI</span>
+            </button>
 
-      <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 md:hidden">
+            <nav className="flex flex-col gap-1">
+              {navItems.map((item) => {
+                const active = location.pathname === item.path;
+                return (
+                  <button
+                    key={item.path}
+                    onClick={() => navigate(item.path)}
+                    className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] transition-colors ${
+                      active
+                        ? "bg-secondary font-semibold text-foreground"
+                        : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+                    }`}
+                  >
+                    <item.icon size={20} />
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
+
+            <button
+              onClick={() => navigate("/feed")}
+              className="mt-4 flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700"
+            >
+              <PenSquare size={18} />
+              New Post
+            </button>
+
+            <div className="mt-auto px-3">
+              <button
+                onClick={toggleTheme}
+                className="flex cursor-pointer items-center gap-3 rounded-xl px-0 py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {dark ? <Sun size={18} /> : <Moon size={18} />}
+                {dark ? "Light mode" : "Dark mode"}
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        {/* Main content */}
+        <main className="min-w-0 px-4 pb-24 pt-6 lg:px-0 lg:pb-6">
+          <Outlet />
+        </main>
+
+        {/* Right sidebar — desktop only */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-0 flex flex-col gap-4 py-6">
+            <MagicCard className="p-5" gradientColor="#06b6d410">
+              <div className="flex items-center gap-3">
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  className="h-12 w-12 rounded-full bg-secondary"
+                />
+                <div className="min-w-0">
+                  <div className="font-semibold text-foreground truncate">{currentUser.name}</div>
+                  <div className="text-sm text-muted-foreground">{currentUser.handle}</div>
+                </div>
+              </div>
+              <div className="mt-4 flex justify-between text-center">
+                <div>
+                  <div className="text-sm font-semibold text-foreground">{currentUser.posts}</div>
+                  <div className="text-xs text-muted-foreground">Posts</div>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-foreground">{currentUser.followers.toLocaleString()}</div>
+                  <div className="text-xs text-muted-foreground">Followers</div>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-foreground">{currentUser.following}</div>
+                  <div className="text-xs text-muted-foreground">Following</div>
+                </div>
+              </div>
+            </MagicCard>
+
+            <MagicCard className="p-2" gradientColor="#06b6d410">
+              <button className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground">
+                <User size={18} />
+                My Wall
+              </button>
+              <button className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground">
+                <Settings size={18} />
+                Settings
+              </button>
+            </MagicCard>
+          </div>
+        </aside>
+      </div>
+
+      {/* Mobile dock */}
+      <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 lg:hidden">
         <Dock
           iconSize={40}
           iconMagnification={60}
