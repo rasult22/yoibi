@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { MagicCard } from "@/components/ui/magic-card";
+import { BlurFade, MagicCard } from "@/shared/ui";
 import { posts as initialPosts, users, userMap, mockComments } from "@/data/mockData";
 import type { Post, Comment, LightboxState } from "@/types";
 import type { LucideIcon } from "lucide-react";

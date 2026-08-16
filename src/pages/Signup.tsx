@@ -1,10 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { MagicCard } from "@/components/ui/magic-card";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Confetti } from "@/components/ui/confetti";
-import type { ConfettiRef } from "@/components/ui/confetti";
+import { BlurFade, MagicCard, ShimmerButton, Confetti } from "@/shared/ui";
+import type { ConfettiRef } from "@/shared/ui";
 import { communityRules, countries, languages } from "@/data/mockData";
 import { ArrowLeft, Upload, Check, PartyPopper } from "lucide-react";
 import type { SignupForm } from "@/types";

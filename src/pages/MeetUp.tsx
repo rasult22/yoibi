@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { MagicCard } from "@/components/ui/magic-card";
-import { AvatarCircles } from "@/components/ui/avatar-circles";
+import { BlurFade, MagicCard, AvatarCircles } from "@/shared/ui";
 import { meetupRooms } from "@/data/mockData";
 import type { MeetupRoom } from "@/types";
 import {

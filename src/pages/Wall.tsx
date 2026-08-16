@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { MagicCard } from "@/components/ui/magic-card";
+import { BlurFade, MagicCard } from "@/shared/ui";
 import {
   users,
   userMap,

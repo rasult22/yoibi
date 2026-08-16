@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { MagicCard } from "@/components/ui/magic-card";
-import { NumberTicker } from "@/components/ui/number-ticker";
+import { BlurFade, MagicCard, NumberTicker  } from "@/shared/ui";
 import { streams, userMap } from "@/data/mockData";
 import type { Stream } from "@/types";
 import { Eye, Radio, Play, Pause, Volume2, VolumeX, Maximize } from "lucide-react";

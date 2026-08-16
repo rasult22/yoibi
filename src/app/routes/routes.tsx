@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "@/components/Layout";
-import Landing from "@/pages/Landing";
+import Landing from "@/pages/landing";
 import Signup from "@/pages/Signup";
 import Feed from "@/pages/Feed";
 import Videos from "@/pages/Videos";

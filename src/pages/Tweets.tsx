@@ -1,7 +1,6 @@
 import { useState, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { MagicCard } from "@/components/ui/magic-card";
+import { BlurFade, MagicCard } from "@/shared/ui";
 import { tweets as initialTweets, userMap } from "@/data/mockData";
 import type { Tweet } from "@/types";
 import { Heart, Repeat2, MessageCircle, Share, Plus, Send } from "lucide-react";
