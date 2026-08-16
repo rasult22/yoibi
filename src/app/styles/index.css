@@ -45,7 +45,7 @@
 }
 
 @utility bg-size-* {
-  background-size: --value(*, 100%);
+  background-size: --value(--bg-size-*);
 }
 
 body {
