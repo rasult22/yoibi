@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Landing from "./pages/Landing";
-import Signup from "./pages/Signup";
-import Feed from "./pages/Feed";
-import Videos from "./pages/Videos";
-import Tweets from "./pages/Tweets";
-import Streams from "./pages/Streams";
-import MeetUp from "./pages/MeetUp";
-import Wall from "./pages/Wall";
+import Layout from "@/components/Layout";
+import Landing from "@/pages/Landing";
+import Signup from "@/pages/Signup";
+import Feed from "@/pages/Feed";
+import Videos from "@/pages/Videos";
+import Tweets from "@/pages/Tweets";
+import Streams from "@/pages/Streams";
+import MeetUp from "@/pages/MeetUp";
+import Wall from "@/pages/Wall";
 
 export default function App() {
   return (
