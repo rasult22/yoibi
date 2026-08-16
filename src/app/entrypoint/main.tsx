@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "@/app/styles/index.css";
-import App from "@/app/routes/App";
+import { router } from "@/app/routes";
 
 const saved = localStorage.getItem("theme");
 if (saved === "light") {
@@ -14,8 +14,6 @@ if (saved === "light") {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/yoibi">
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </StrictMode>
 );
