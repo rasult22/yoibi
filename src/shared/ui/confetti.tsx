@@ -11,7 +11,7 @@ import React, {
 import confetti from "canvas-confetti"
 import type { Options as ConfettiOptions, CreateTypes } from "canvas-confetti"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/ui/button"
 
 export interface ConfettiRef {
   fire: (opts?: ConfettiOptions) => Promise<void>;
