@@ -2,7 +2,6 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 import { YoibiLogo } from "@/shared/ui";
 import { MagicCard } from "@/shared/ui/magic-card";
-import { AnimatedThemeToggler } from "@/shared/ui/animated-theme-toggler";
 import { Dock, DockIcon } from "@/shared/ui/dock";
 import {
   Home,
@@ -60,13 +59,9 @@ export default function Layout() {
             onClick={() => navigate("/")}
             className="flex cursor-pointer items-center gap-2"
           >
-            <YoibiLogo className="h-7 w-7 text-cyan-500" />
-            <span className="text-lg font-bold text-cyan-500">YOIBI</span>
+            <YoibiLogo className="h-11 w-11 text-cyan-500" />
+            <span className="text-2xl font-bold text-cyan-500">YOIBI</span>
           </button>
-          <AnimatedThemeToggler
-            variant="circle"
-            className="cursor-pointer rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&>svg]:size-[18px]"
-          />
         </div>
       </header>
 
@@ -110,12 +105,6 @@ export default function Layout() {
               New Post
             </button>
 
-            <div className="mt-auto px-3">
-              <AnimatedThemeToggler
-                variant="circle"
-                className="flex cursor-pointer items-center gap-3 rounded-xl py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground [&>svg]:size-[18px]"
-              />
-            </div>
           </div>
         </aside>
 

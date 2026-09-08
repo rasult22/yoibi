@@ -146,18 +146,8 @@ export function resolveLineColor(color: string, element: HTMLElement): Float32Ar
   ]);
 }
 
-export function isDarkMode(colorScheme: MediaQueryList): boolean {
-  const root = document.documentElement
-
-  if (root.classList.contains("dark")) {
-    return true
-  }
-
-  if (root.classList.contains("light")) {
-    return false
-  }
-
-  return colorScheme.matches
+export function isDarkMode(_colorScheme: MediaQueryList): boolean {
+  return false
 }
 
 export function clamp(value: number, min: number, max: number): number {

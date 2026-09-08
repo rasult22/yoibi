@@ -32,7 +32,7 @@ export default function Signup() {
     country: "",
     age: "",
     language: "en",
-    theme: "dark",
+    theme: "light",
   });
 
   const update = (field: keyof SignupForm, value: string) =>

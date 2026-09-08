@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useSyncExternalStore } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import {
   motion,
   useMotionTemplate,
@@ -22,23 +22,6 @@ interface MagicCardProps {
   glowSize?: number;
   glowBlur?: number;
   glowOpacity?: number;
-}
-
-const themeListeners = new Set<() => void>()
-let cachedIsDark = document.documentElement.classList.contains("dark")
-
-const observer = new MutationObserver(() => {
-  cachedIsDark = document.documentElement.classList.contains("dark")
-  themeListeners.forEach((fn) => fn())
-})
-observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
-
-function subscribeTheme(cb: () => void) {
-  themeListeners.add(cb)
-  return () => { themeListeners.delete(cb) }
-}
-function getThemeSnapshot() {
-  return cachedIsDark
 }
 
 const globalResetListeners = new Set<() => void>()
@@ -78,7 +61,7 @@ export function MagicCard(props: MagicCardProps) {
   const glowBlur = isOrbMode(props) ? (props.glowBlur ?? 60) : 60
   const glowOpacity = isOrbMode(props) ? (props.glowOpacity ?? 0.9) : 0.9
 
-  const isDarkTheme = useSyncExternalStore(subscribeTheme, getThemeSnapshot)
+  const isDarkTheme = false
 
   const mouseX = useMotionValue(-gradientSize)
   const mouseY = useMotionValue(-gradientSize)
