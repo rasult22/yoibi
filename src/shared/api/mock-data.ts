@@ -8,7 +8,7 @@ import type {
   MeetupRoom,
   VideoCategory,
   Language,
-} from "@/types";
+} from "./domain-types";
 
 export const users: User[] = [
   { id: 1, name: "Alex Rivera", handle: "@alexr", avatar: "https://i.pravatar.cc/150?img=11", country: "USA", color: "#6366f1", bio: "Photographer & sunset chaser. Documenting the world one frame at a time.", cover: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&h=300&fit=crop", joinDate: "Jan 2025", followers: 1420, following: 384 },

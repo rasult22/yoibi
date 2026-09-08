@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import type { Transition } from "motion-dom";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/shared/lib"
 
 interface BorderBeamProps {
   className?: string;

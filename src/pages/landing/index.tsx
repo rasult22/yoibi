@@ -7,8 +7,8 @@ import { Particles } from "@/shared/ui";
 import { NumberTicker } from "@/shared/ui";
 import { Marquee } from "@/shared/ui";
 import { MagicCard } from "@/shared/ui";
-import { communityRules } from "@/data/mockData";
-import YoibiLogo from "@/components/YoibiLogo";
+import { communityRules } from "@/shared/api";
+import { YoibiLogo } from "@/shared/ui";
 import {
   Users,
   Video,

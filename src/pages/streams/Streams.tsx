@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { BlurFade, MagicCard, NumberTicker  } from "@/shared/ui";
-import { streams, userMap } from "@/data/mockData";
-import type { Stream } from "@/types";
+import { streams, userMap } from "@/shared/api";
+import type { Stream } from "@/shared/api";
 import { Eye, Radio, Play, Pause, Volume2, VolumeX, Maximize } from "lucide-react";
 
 interface StreamCardProps {

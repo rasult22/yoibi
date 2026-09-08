@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { BlurFade, MagicCard } from "@/shared/ui";
-import { posts as initialPosts, users, userMap, mockComments } from "@/data/mockData";
-import type { Post, Comment, LightboxState } from "@/types";
-import type { LucideIcon } from "lucide-react";
+import { BlurFade, MagicCard, ShareModal, ImageLightbox, ImageCarousel } from "@/shared/ui";
+import type { LightboxState } from "@/shared/ui";
+import { posts as initialPosts, users, userMap, mockComments } from "@/shared/api";
+import { buildThreadGroups } from "@/shared/lib";
+import type { Post, Comment } from "@/shared/api";
 import {
   Heart,
   MessageCircle,
@@ -11,35 +12,11 @@ import {
   Share,
   Plus,
   Send,
-  X,
-  Link2,
-  Copy,
-  Check,
   Bookmark,
   BookmarkCheck,
   MoreHorizontal,
-  AtSign,
-  Mail,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-
-interface ShareModalProps {
-  post: Post;
-  onClose: () => void;
-}
-
-interface ImageModalProps {
-  images: string[];
-  initialIndex: number;
-  onClose: () => void;
-}
-
-interface ImageCarouselProps {
-  images: string[];
-  onImageClick: (index: number) => void;
-}
 
 interface CommentSectionProps {
   postId: number;
@@ -56,275 +33,6 @@ interface PostItemProps {
   onShare: (post: Post) => void;
   hasThreadBelow: boolean;
   isReply: boolean;
-}
-
-interface ShareOption {
-  icon: LucideIcon;
-  label: string;
-  action: () => void;
-}
-
-interface DragState {
-  isDown: boolean;
-  startX: number;
-  scrollLeft: number;
-  dragged: boolean;
-}
-
-function ShareModal({ post, onClose }: ShareModalProps) {
-  const [copied, setCopied] = useState(false);
-  const fakeUrl = `https://yoibi.com/post/${post.id}`;
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(fakeUrl).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const shareOptions: ShareOption[] = [
-    { icon: Link2, label: "Copy Link", action: handleCopy },
-    { icon: Mail, label: "Email", action: () => {} },
-    { icon: AtSign, label: "Twitter / X", action: () => {} },
-    { icon: Send, label: "Direct Message", action: () => {} },
-  ];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ type: "spring", duration: 0.3 }}
-        onClick={(e) => e.stopPropagation()}
-        className="mx-4 w-full max-w-sm rounded-2xl border border-border bg-card p-5"
-      >
-        <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-foreground">Share Post</h3>
-          <button
-            onClick={onClose}
-            className="cursor-pointer rounded-full p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        <div className="mb-4 rounded-lg border border-border bg-secondary/50 p-3">
-          <p className="line-clamp-2 text-sm text-foreground/80">{post.text}</p>
-        </div>
-
-        <div className="space-y-1">
-          {shareOptions.map((opt) => (
-            <button
-              key={opt.label}
-              onClick={opt.action}
-              className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
-            >
-              <opt.icon size={18} className="text-muted-foreground" />
-              {opt.label === "Copy Link" && copied ? (
-                <span className="flex items-center gap-1.5 text-green-400">
-                  <Check size={14} /> Copied!
-                </span>
-              ) : (
-                opt.label
-              )}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-4 flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
-          <span className="flex-1 truncate text-xs text-muted-foreground">
-            {fakeUrl}
-          </span>
-          <button
-            onClick={handleCopy}
-            className="cursor-pointer rounded p-1 text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
-          </button>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function ImageModal({ images, initialIndex, onClose }: ImageModalProps) {
-  const [current, setCurrent] = useState(initialIndex);
-
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") setCurrent((c) => Math.max(0, c - 1));
-      if (e.key === "ArrowRight") setCurrent((c) => Math.min(images.length - 1, c + 1));
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [images.length, onClose]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-10 cursor-pointer rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-      >
-        <X size={20} />
-      </button>
-
-      <div className="relative flex max-h-[90vh] max-w-[90vw] items-center" onClick={(e) => e.stopPropagation()}>
-        {images.length > 1 && current > 0 && (
-          <button
-            onClick={() => setCurrent(current - 1)}
-            className="absolute -left-12 z-10 cursor-pointer rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-          >
-            <ChevronLeft size={20} />
-          </button>
-        )}
-
-        <motion.img
-          key={current}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
-          src={images[current].replace(/w=\d+/, "w=1200").replace(/h=\d+/, "h=900")}
-          alt=""
-          className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
-        />
-
-        {images.length > 1 && current < images.length - 1 && (
-          <button
-            onClick={() => setCurrent(current + 1)}
-            className="absolute -right-12 z-10 cursor-pointer rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-          >
-            <ChevronRight size={20} />
-          </button>
-        )}
-      </div>
-
-      {images.length > 1 && (
-        <div className="absolute bottom-6 flex gap-1.5">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={(e) => { e.stopPropagation(); setCurrent(i); }}
-              className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                i === current ? "w-6 bg-white" : "w-1.5 bg-white/40"
-              }`}
-            />
-          ))}
-        </div>
-      )}
-    </motion.div>
-  );
-}
-
-function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const dragState = useRef<DragState>({ isDown: false, startX: 0, scrollLeft: 0, dragged: false });
-
-  const handleScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const index = Math.round(el.scrollLeft / el.offsetWidth);
-    setActiveIndex(index);
-  };
-
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    dragState.current = { isDown: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft, dragged: false };
-    el.style.cursor = "grabbing";
-    el.style.scrollSnapType = "none";
-    el.style.scrollBehavior = "auto";
-  };
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!dragState.current.isDown) return;
-    e.preventDefault();
-    const el = scrollRef.current;
-    if (!el) return;
-    const x = e.pageX - el.offsetLeft;
-    const walk = x - dragState.current.startX;
-    if (Math.abs(walk) > 5) dragState.current.dragged = true;
-    el.scrollLeft = dragState.current.scrollLeft - walk;
-  };
-  const onMouseUp = () => {
-    if (!dragState.current.isDown) return;
-    dragState.current.isDown = false;
-    const el = scrollRef.current;
-    if (!el) return;
-    el.style.cursor = "grab";
-    el.style.scrollBehavior = "smooth";
-    el.style.scrollSnapType = "x mandatory";
-    const cardWidth = (el.firstElementChild as HTMLElement)?.offsetWidth || el.offsetWidth;
-    const gap = 12;
-    const target = Math.round(el.scrollLeft / (cardWidth + gap));
-    el.scrollTo({ left: target * (cardWidth + gap) });
-    requestAnimationFrame(() => {
-      el.style.scrollBehavior = "";
-    });
-  };
-
-  if (images.length === 1) {
-    return (
-      <div className="mt-3 overflow-hidden rounded-xl">
-        <img
-          src={images[0]}
-          alt=""
-          onClick={() => onImageClick(0)}
-          className="aspect-[3/2] w-full cursor-pointer object-cover"
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative mt-3">
-      <div
-        ref={scrollRef}
-        onScroll={handleScroll}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto scrollbar-none cursor-grab select-none"
-        style={{ scrollbarWidth: "none" }}
-      >
-        {images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            draggable={false}
-            onClick={() => { if (!dragState.current.dragged) onImageClick(i); }}
-            className="aspect-[3/2] w-[85%] shrink-0 snap-center cursor-pointer rounded-xl object-cover"
-          />
-        ))}
-      </div>
-      {images.length > 1 && (
-        <div className="mt-2 flex justify-center gap-1">
-          {images.map((_, i) => (
-            <div
-              key={i}
-              className={`h-1 rounded-full transition-all ${
-                i === activeIndex ? "w-4 bg-cyan-400" : "w-1 bg-border"
-              }`}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
 }
 
 function CommentSection({ postId, comments, onAddComment }: CommentSectionProps) {
@@ -560,27 +268,7 @@ const PostItem = memo(function PostItem({ post, onLike, onRepost, onAddComment, 
   );
 });
 
-function buildThreadGroups(posts: Post[]): Post[][] {
-  const groups: Post[][] = [];
-  let i = 0;
-  while (i < posts.length) {
-    const post = posts[i];
-    if (!post.replyTo) {
-      const thread: Post[] = [post];
-      let j = i + 1;
-      while (j < posts.length && posts[j].replyTo) {
-        thread.push(posts[j]);
-        j++;
-      }
-      groups.push(thread);
-      i = j;
-    } else {
-      groups.push([post]);
-      i++;
-    }
-  }
-  return groups;
-}
+
 
 export default function Feed() {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
@@ -725,7 +413,7 @@ export default function Feed() {
 
       <AnimatePresence>
         {lightbox && (
-          <ImageModal
+          <ImageLightbox
             images={lightbox.images}
             initialIndex={lightbox.index}
             onClose={() => setLightbox(null)}
@@ -735,7 +423,7 @@ export default function Feed() {
 
       <AnimatePresence>
         {sharePost && (
-          <ShareModal post={sharePost} onClose={() => setSharePost(null)} />
+          <ShareModal content={sharePost} onClose={() => setSharePost(null)} />
         )}
       </AnimatePresence>
     </div>

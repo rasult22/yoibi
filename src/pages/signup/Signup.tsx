@@ -2,9 +2,20 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlurFade, MagicCard, ShimmerButton, Confetti } from "@/shared/ui";
 import type { ConfettiRef } from "@/shared/ui";
-import { communityRules, countries, languages } from "@/data/mockData";
+import { communityRules, countries, languages } from "@/shared/api";
 import { ArrowLeft, Upload, Check, PartyPopper } from "lucide-react";
-import type { SignupForm } from "@/types";
+
+interface SignupForm {
+  name: string;
+  email: string;
+  phone: string;
+  positiveMessage: string;
+  favoriteColor: string;
+  country: string;
+  age: string;
+  language: string;
+  theme: string;
+}
 
 export default function Signup() {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ interface YoibiLogoProps {
   className?: string;
 }
 
-export default function YoibiLogo({ className = "h-8 w-8" }: YoibiLogoProps) {
+export function YoibiLogo({ className = "h-8 w-8" }: YoibiLogoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

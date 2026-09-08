@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "@/components/Layout";
+import Layout from "@/app/layout/Layout";
 import Landing from "@/pages/landing";
-import Signup from "@/pages/Signup";
-import Feed from "@/pages/Feed";
-import Videos from "@/pages/Videos";
-import Tweets from "@/pages/Tweets";
-import Streams from "@/pages/Streams";
-import MeetUp from "@/pages/MeetUp";
-import Wall from "@/pages/Wall";
+import Signup from "@/pages/signup";
+import Feed from "@/pages/feed";
+import Videos from "@/pages/videos";
+import Tweets from "@/pages/tweets";
+import Streams from "@/pages/streams";
+import MeetUp from "@/pages/meetup";
+import Wall from "@/pages/wall";
 
 export const router = createBrowserRouter(
   [

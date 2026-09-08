@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/shared/lib"
 
 function polygonCollapsed(point: string, vertexCount: number): string {
   const pairs = Array.from({ length: vertexCount }, () => point).join(", ")

@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
-import YoibiLogo from "@/components/YoibiLogo";
+import { YoibiLogo } from "@/shared/ui";
 import { MagicCard } from "@/shared/ui/magic-card";
 import { AnimatedThemeToggler } from "@/shared/ui/animated-theme-toggler";
 import { Dock, DockIcon } from "@/shared/ui/dock";

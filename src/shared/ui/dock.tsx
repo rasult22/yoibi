@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { cva } from "class-variance-authority";
 import { type HTMLMotionProps, motion, type MotionValue, useMotionValue, useSpring, useTransform } from "motion/react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/shared/lib"
 
 const DEFAULT_SIZE = 40
 const DEFAULT_MAGNIFICATION = 60

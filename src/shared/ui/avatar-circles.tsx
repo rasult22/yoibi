@@ -1,5 +1,9 @@
-import { cn } from "@/lib/utils"
-import type { AvatarUrl } from "@/types"
+import { cn } from "@/shared/lib"
+
+interface AvatarUrl {
+  imageUrl: string;
+  profileUrl: string;
+}
 
 interface AvatarCirclesProps {
   numPeople?: number;

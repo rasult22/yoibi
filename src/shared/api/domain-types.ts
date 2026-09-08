@@ -85,25 +85,3 @@ export interface Language {
   code: string;
   label: string;
 }
-
-export interface AvatarUrl {
-  imageUrl: string;
-  profileUrl: string;
-}
-
-export interface SignupForm {
-  name: string;
-  email: string;
-  phone: string;
-  positiveMessage: string;
-  favoriteColor: string;
-  country: string;
-  age: string;
-  language: string;
-  theme: string;
-}
-
-export interface LightboxState {
-  images: string[];
-  index: number;
-}

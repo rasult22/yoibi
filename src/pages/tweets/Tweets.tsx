@@ -1,8 +1,9 @@
 import { useState, useCallback, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlurFade, MagicCard } from "@/shared/ui";
-import { tweets as initialTweets, userMap } from "@/data/mockData";
-import type { Tweet } from "@/types";
+import { tweets as initialTweets, userMap } from "@/shared/api";
+import type { Tweet } from "@/shared/api";
+import { buildThreadGroups } from "@/shared/lib";
 import { Heart, Repeat2, MessageCircle, Share, Plus, Send } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -100,27 +101,7 @@ const TweetItem = memo(function TweetItem({ tweet, onLike, onRetweet, hasThreadB
   );
 });
 
-function buildThreadGroups(tweets: Tweet[]): Tweet[][] {
-  const groups: Tweet[][] = [];
-  let i = 0;
-  while (i < tweets.length) {
-    const tweet = tweets[i];
-    if (!tweet.replyTo) {
-      const thread: Tweet[] = [tweet];
-      let j = i + 1;
-      while (j < tweets.length && tweets[j].replyTo) {
-        thread.push(tweets[j]);
-        j++;
-      }
-      groups.push(thread);
-      i = j;
-    } else {
-      groups.push([tweet]);
-      i++;
-    }
-  }
-  return groups;
-}
+
 
 export default function Tweets() {
   const [tweets, setTweets] = useState<Tweet[]>(initialTweets);

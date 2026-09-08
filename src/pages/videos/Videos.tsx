@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import type { LucideIcon } from "lucide-react";
 import { BlurFade, MagicCard, BorderBeam } from "@/shared/ui";
-import { videos, userMap, videoCategories } from "@/data/mockData";
-import type { Video } from "@/types";
+import { videos, userMap, videoCategories } from "@/shared/api";
+import type { Video } from "@/shared/api";
 import {
   Play,
   Pause,
